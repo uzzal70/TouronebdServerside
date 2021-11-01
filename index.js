@@ -24,7 +24,7 @@ async function run()
         // console.log('connection to database')
         const database = client.db("tourofbd"); //Database Name
         const servicesCollection = database.collection('packages'); //service database ar collection name 
-
+        const userCollection = database.collection('users');
         //GET API
         app.get('/packages', async (req, res) =>
         {
@@ -32,7 +32,14 @@ async function run()
             const packages = await cursor.toArray();
             res.send(packages);
         });
+        app.get('/users', async (req, res) =>
+        {
+            const cursor = userCollection.find({});
+            const users = await cursor.toArray();
+            res.send(users);
+        });
 
+        
         //GET Single API
         // app.get('/services/:id', async (req, res) =>
         // {
@@ -44,17 +51,17 @@ async function run()
         // });
 
         // // Post API 
-        // app.post('/services', async (req, res) =>
-        // {
-        //     const service = req.body;
-        //     console.log('hit the button ', service)
+        app.post('/users', async (req, res) =>
+        {
+            const user = req.body;
+            console.log('hit the button ', user)
 
-        //     // carMechanic name akta database create kore data pathi dibe 
-        //     const result = await servicesCollection.insertOne(service);
-        //     console.log('result');
-        //     res.json('result');
+            // carMechanic name akta database create kore data pathi dibe 
+            const result = await userCollection.insertOne(user);
+            console.log('result');
+            res.json('result')
+        });
 
-        // });
         // //Delete API
         // app.delete('/services/:id', async (req, res) =>
         // {
