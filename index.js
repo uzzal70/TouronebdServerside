@@ -39,31 +39,31 @@ async function run()
             res.send(users);
         });
 
-        
-        //GET Single API
-        // app.get('/services/:id', async (req, res) =>
-        // {
-        //     const id = req.params.id;
-        //     console.log(id);
-        //     const query = { _id: ObjectId(id) };
-        //     const service = await servicesCollection.findOne(query);
-        //     res.json(service);
-        // });
+        // // Add New Packages 
+        app.post('/packages', async (req, res) =>
+        {
+            const package = req.body;
+            console.log('hit the button ', package)
+            // tourofbd name akta database create kore data pathi dibe 
+            const result = await servicesCollection.insertOne(package);
+            console.log('result');
+            res.json('result')
+        });
 
-        // // Post API 
+        // // Post API  User add
         app.post('/users', async (req, res) =>
         {
             const user = req.body;
             console.log('hit the button ', user)
 
-            // carMechanic name akta database create kore data pathi dibe 
+            // user name akta database create kore data pathi dibe 
             const result = await userCollection.insertOne(user);
             console.log('result');
             res.json('result')
         });
 
         // //Delete API
-        // app.delete('/services/:id', async (req, res) =>
+        // app.delete('/packages/:id', async (req, res) =>
         // {
         //     const id = req.params.id;
         //     const query = { _id: ObjectId(id) };
